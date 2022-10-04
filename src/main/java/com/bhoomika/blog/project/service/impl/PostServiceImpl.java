@@ -4,6 +4,7 @@ import com.bhoomika.blog.project.entity.Post;
 import com.bhoomika.blog.project.payload.PostDto;
 import com.bhoomika.blog.project.repository.PostRepository;
 import com.bhoomika.blog.project.service.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,23 +17,29 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
 
 
 private PostDto mapToDto(Post post){
-    PostDto postDto = new PostDto();
-    postDto.setId(post.getId());
-    postDto.setTitle(post.getTitle());
-    postDto.setDescription(post.getDescription());
-    postDto.setContent(post.getContent());
+//    PostDto postDto = new PostDto();
+//    postDto.setId(post.getId());
+//    postDto.setTitle(post.getTitle());
+//    postDto.setDescription(post.getDescription());
+//    postDto.setContent(post.getContent());
+    PostDto postDto = modelMapper.map(post, PostDto.class);
     return postDto;
 }
 
 
 private Post mapToEntity(PostDto postDto){
-    Post post = new Post();
-    post.setTitle(postDto.getTitle());
-    post.setDescription(postDto.getDescription());
-    post.setContent(postDto.getContent());
+//    Post post = new Post();
+//    post.setTitle(postDto.getTitle());
+//    post.setDescription(postDto.getDescription());
+//    post.setContent(postDto.getContent());
+
+    Post post = modelMapper.map(postDto, Post.class);
     return post;
 }
 

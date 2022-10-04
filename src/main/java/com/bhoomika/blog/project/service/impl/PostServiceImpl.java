@@ -1,6 +1,7 @@
 package com.bhoomika.blog.project.service.impl;
 
 import com.bhoomika.blog.project.entity.Post;
+import com.bhoomika.blog.project.exception.ResourceNotFoundException;
 import com.bhoomika.blog.project.payload.PostDto;
 import com.bhoomika.blog.project.payload.PostResponse;
 import com.bhoomika.blog.project.repository.PostRepository;
@@ -90,7 +91,7 @@ public class PostServiceImpl implements PostService {
     public PostDto getPostById(Long id) {
         Post post = postRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("resource not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Post","id", id ));
 
         return mapToDto(post);
     }
@@ -100,7 +101,7 @@ public class PostServiceImpl implements PostService {
 
         Post post = postRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("resource not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Post","id", id));
 
         post.setTitle(postdto.getTitle());
         post.setDescription(postdto.getDescription());
@@ -115,7 +116,7 @@ public class PostServiceImpl implements PostService {
 
         Post post = postRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("resource not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Post","id", id));
 
         postRepository.delete(post);
 
